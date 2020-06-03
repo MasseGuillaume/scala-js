@@ -102,6 +102,15 @@ object | { // scalastyle:ignore
      */
     def merge[B](implicit ev: |.Evidence[A, B]): B =
       self.asInstanceOf[B]
+
+    /** Convert `A | B` into Either[A, B]
+     *
+     */
+    def toEither[A: ClassTag, B: ClassTag](v: A | B): Either[A, B] =
+      v match {
+        case a: A => Left(a)
+        case b: B => Right(b)
+      }
   }
 
   /** Provides an [[Option]]-like API to [[js.UndefOr]]. */
